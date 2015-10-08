@@ -1,0 +1,219 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+" Plugins
+Plugin 'tomasr/molokai'
+Plugin 'scrooloose/nerdtree'
+Plugin 'nanotech/jellybeans.vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'bling/vim-airline'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'majutsushi/tagbar'
+Plugin 'godlygeek/tabular'
+Plugin 'Raimondi/delimitMate'
+Plugin 'tpope/vim-commentary'
+Plugin 'MatlabFilesEdition'
+Plugin 'matchit.zip'
+Plugin 'luochen1990/rainbow'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'sjl/gundo.vim'
+"just test for gundo
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+" Allow colors in commandline mode
+if !has("gui_running")
+    set t_Co=256
+    " Color setting for terminal
+    set background=dark
+    colorscheme default
+else
+    set t_Co=256
+    " Color setting for GUI
+    set background=dark
+    "colorscheme molokai
+    colorscheme solarized
+
+    "colorscheme jellybeans
+endif
+let g:molokai_original = 1
+let g:jellyseans_overrides = {
+\    'Todo': { 'guifg': '303030', 'guibg': 'f0f000',
+\              'ctermfg': 'Black', 'ctermbg': 'Yellow',
+\              'astr': 'bold' },
+\}
+set guifont=Monaco:h15
+set colorcolumn=80
+set cmdheight=2
+" key matching
+set nocompatible
+let mapleader = ","
+inoremap jk <Esc>
+nnoremap j gj
+nnoremap k gk
+nnoremap ; :
+nnoremap : ;
+vnoremap ; :
+vnoremap : ;
+set guioptions=
+set wildmenu
+call togglebg#map("<Leader>C")
+" Change dir to the first opening file
+" and don't auto change dir ever.
+cd %:p:h
+set noautochdir
+" disable backup and swap files
+set nobackup
+set noswapfile
+
+" Ignore case sensitive
+set ignorecase
+
+" Set highlight search result
+set hlsearch
+
+" Set search
+set incsearch
+
+" Show relative line numbers
+set relativenumber
+
+" Show absolute line numbers
+set number
+
+" Syntax highlight setting
+syntax enable
+syntax on
+
+" Set encoding to utf-8
+set encoding=utf-8
+
+" Tab and indent settings
+set autoindent
+set cindent
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set shiftround
+set expandtab
+" Use leader F4 to call Nerdtree
+noremap <Leader>n :NERDTreeToggle<CR>
+nnoremap <Space> :noh<CR>
+" Manage split screens
+set winminheight=0
+set winminwidth=0
+set splitbelow
+set splitright
+noremap <Leader>v :vsplit<CR>
+noremap <Leader>h :split<CR>
+nnoremap <Leader>z <C-W>\|<C-W>_
+noremap <Leader>1 <C-B>
+noremap <Leader>2 <C-F>
+" Always show statusline
+set laststatus=2
+set cursorline
+nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
+augroup CursorLine
+  au!
+  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  au WinLeave * setlocal nocursorline
+augroup END
+" CtrlP config
+
+" Set this to 1 to set searching by filename (as opposed to full path) as the
+" default: >
+let g:ctrlp_by_filename = 1
+
+" Set this to 1 to set regexp search as the default: >
+let g:ctrlp_regexp = 1
+
+" 1 - the parent directory of the current file.
+" 2 - the nearest ancestor that contains one of these directories or files:
+"     .git/ .hg/ .svn/ .bzr/ _darcs/
+" 0 - don't manage working directory.
+let g:ctrlp_working_path_mode = 0
+
+" Set this to 1 to enable the lazy-update feature: only update the match window
+" after typing been stopped for a certain amount of time: >
+"
+" If is 1, update after 250ms. If bigger than 1, the number will be used as the
+" delay time in milliseconds.
+let g:ctrlp_lazy_update = 1
+
+" The maximum number of files to scan, set to 0 for no limit: >
+let g:ctrlp_max_files = 0
+
+" Set the maximum height of the match window: >
+let g:ctrlp_max_height = 70
+
+" In addition to |'wildignore'|, use this for files and directories you want only
+" CtrlP to not show. Use regexp to specify the patterns: >
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\.git$\|\.hg$\|\.svn$',
+    \ 'file': '\.exe$\|\.so$\|\.dll$\|\.elf$\|\.o$\
+               \|\.obj$\|\.class$\
+               \|\.png$\|\.jpg$\|\.jpeg$\|\.bmp$\
+               \|\.vsd$\|\.vsdx$\|\.doc$\|\.docx$\
+               \|\.xls$\|\.xlsx$',
+    \ 'link': '',
+    \ }
+
+" Set this to 0 to enable cross-session caching by not deleting the cache files
+" upon exiting Vim: >
+let g:ctrlp_clear_cache_on_exit = 0
+
+"EasyMotion plugin
+" nnoremap <Leader><Leader> <Plug>(easymotion-prefix)
+let g:EasyMotion_leader_key = '<Leader>' 
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+"tagbar plugin
+nnoremap <Leader>t :TagbarToggle<CR>
+nnoremap <leader>. :CtrlPTag<cr>
+"ctag tutorial
+":tag function_name or ta function_name(find definition)
+" ctags -R .
+
+"tabular plugin
+"nnoremap <Leader>l :Tabularize /=<CR>
+"vmap <Leader>l :Tabularize /=<CR>
+
+"commentary plugin
+autocmd FileType python set commentstring=#\ %s
+autocmd FileType c set commentstring=//\ %s
+autocmd FileType cpp set commentstring=//\ %s
+autocmd FileType matlab set commentstring=\%\ %s
+"rainbow plugin
+nnoremap <Leader>` :RainbowToggle<CR>
+let g:rainbow_active = 0
+let g:rainbow_conf = {
+    \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+    \   'ctermfgs': ['darkgray', 'darkblue', 'darkmagenta', 'darkcyan'],
+    \   'operators': '_,_',
+    \   'parentheses': [['(',')'], ['\[','\]'], ['{','}']],
+    \   'separately': {
+    \       '*': {},
+    \       'vim': {
+    \           'parentheses': [['fu\w* \s*.*)','endfu\w*'], ['for','endfor'], ['while', 'endwhile'], ['if','_elseif\|else_','endif'], ['(',')'], ['\[','\]'], ['{','}']],
+    \       },
+    \       'tex': {
+    \           'parentheses': [['(',')'], ['\[','\]'], ['\\begin{.*}','\\end{.*}']],
+    \       },
+    \   }
+    \}
+"Gundo plugin
+let g:gundo_width = 60
+let g:gundo_preview_height = 40
+let g:gundo_right = 1
+nnoremap <Leader>d :GundoToggle<CR>

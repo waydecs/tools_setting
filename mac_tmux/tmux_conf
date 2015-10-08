@@ -1,0 +1,34 @@
+set -g utf8
+set-window-option -g utf8 on
+# make tmux display things in 256 colors
+set -g default-terminal "screen-256color"
+# set scrollback history to 10000 (10k)
+set -g history-limit 10000
+# set Ctrl-a as the default prefix key combination
+# and unbind C-b to free it up
+set -g prefix C-a
+unbind C-b
+# use send-prefix to pass C-a through to application
+bind C-a send-prefix
+# set window and pane index to 1 (0 by default)
+set-option -g base-index 1
+setw -g pane-base-index 1
+# use PREFIX | to split window horizontally and PREFIX - to split vertically
+bind | split-window -h
+bind - split-window -v
+# map Vi movement keys as pane movement keys
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+# map q as &
+bind e select-pane -&
+status bar config
+set -g status-left "#h:[#S]"
+set -g status-left-length 50
+set -g status-right-length 50
+set -g status-right "⚡ #(~/bin/tmux-battery) [✉#(~/bin/imap_check.py)] %H:%M %d-%h-%Y"
+setw -g window-status-current-format "|#I:#W|"
+set-window-option -g automatic-rename off
+# listen to alerts from all windows
+set -g bell-action any
